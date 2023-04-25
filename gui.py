@@ -64,9 +64,9 @@ class Game(ctk.CTk):
                         self.video_feed.image = tk_image
 
                     if(self.countdown is None):
-                        self.video_canvas = ctk.CTkCanvas(self.video_frame, bg=self.video_frame._bg_color[0])
-                        self.video_canvas.place(relx=.5, rely=.5,anchor= tk.CENTER)
-                        self.countdown = ctk.CTkLabel(self.video_canvas, text=self.countdown_text, fg_color="transparent", font=ctk.CTkFont(size=100, weight="bold"))
+                       # self.video_canvas = ctk.CTkCanvas(self.video_frame, bg=self.video_frame._bg_color[0]).create_text(x=)
+                       # self.video_canvas.place(relx=.5, rely=.5,anchor= tk.CENTER)
+                        self.countdown = ctk.CTkLabel(self.video_frame, text=self.countdown_text, fg_color="transparent", font=ctk.CTkFont(size=100, weight="bold"))
                         self.countdown.place(relx=.5, rely=.5,anchor= tk.CENTER) #display countdown
                     else:
                         self.countdown.configure(require_redraw=True, text=self.countdown_text)
