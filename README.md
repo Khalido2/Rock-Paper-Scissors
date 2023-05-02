@@ -1,14 +1,10 @@
 # Rock-Paper-Scissors
  
- A rock paper scissors game where you play against the computer
+A rock paper scissors game where you play against the computer
 
-In prototyping phase to determine how to recognise what play the user has made
-imageProcessing.py attempts to use image subtraction and binary thresholding to mask out the user's hand but this is a little flawed as it requires you to have a consistent background for the subtraction to work 
+Packages required for project: check build.gradle file
 
-finger_grid_generator.py uses mediapipe to track 21 pointer of the detected hand then creates a binary matrix representing the move made (rock, paper or scissors), this script is used to generate the datasets for training and testing in the Datasets folder
+Still in development. The main elements of the project (i.e. mediapipe that detects and tracks player's hands and the tensorflow model (CNN) that classifies the generated grids of tracking points into moves) are all written in
+python in the ml_api.py script. The whole project has been wrapped in Java in order to provide a more flexible and prettier GUI using JavaFX rather than the python options.
 
-gui.py creates the gui for the game (in development)
-
-game_logic handles the game logic for playing the game, handling wins and detecting the player's move (in development)
-
-Packages required for project: opencv2, mediapipe, tensorflow, customtkinter, numpy 
+Currently only the start screen and play screen are implemented
