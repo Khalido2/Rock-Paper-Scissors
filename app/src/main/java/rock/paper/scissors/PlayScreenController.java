@@ -32,16 +32,16 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
 
     private Interpreter pyInterpreter; //used to trigger python functions
 
-    boolean cameraActive = true;
-    boolean appShutDown = false;
+    boolean cameraActive;
+    boolean appShutDown;
 
-    Mat javaCVMat = new Mat();
-    WritablePixelFormat<ByteBuffer> formatByte = PixelFormat.getByteBgraPreInstance();
+    Mat javaCVMat;
+    WritablePixelFormat<ByteBuffer> formatByte;
 
-    OpenCVFrameConverter<Mat> javaCVConv = new OpenCVFrameConverter.ToMat();
+    OpenCVFrameConverter<Mat> javaCVConv;
 
-    OpenCVFrameGrabber frameGrabber = new OpenCVFrameGrabber(0);
-    OpenCVFrameConverter.ToIplImage iplConverter = new OpenCVFrameConverter.ToIplImage();
+    OpenCVFrameGrabber frameGrabber;
+    OpenCVFrameConverter.ToIplImage iplConverter;
 
     ByteBuffer buffer;
 
@@ -87,17 +87,19 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
     }
 
     //Given a webcam frame, use the ml model to determine the move made
-    void detectPlayerMove(Frame frame){
+    int detectPlayerMove(Frame frame){
         IplImage img = iplConverter.convert(frame); //reads in webcam frame
         opencv_imgcodecs.cvSaveImage(snapshotFilePath, img); //convert to image and save
 
         try{
             pyInterpreter.set("img_path", snapshotFilePath);
             Object res = pyInterpreter.getValue("ml.detect_player_move(img_path)");
-            System.out.println(res.toString());
+            return Integer.parseInt(res.toString());
         } catch (JepException e){
             e.printStackTrace();
         }
+
+        return -1; //-1 is the default for if no hand was detected or if there was an error
     }
 
     void setPlayText(String text){
@@ -114,11 +116,11 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
                 playText.setText("HANDS UP!");
                 Thread.sleep(1000);
                 setPlayText("ROCK");
-                Thread.sleep(800);
+                Thread.sleep(750);
                 setPlayText("PAPER");
-                Thread.sleep(800);
+                Thread.sleep(750);
                 setPlayText("SCISSORS");
-                Thread.sleep(800);
+                Thread.sleep(750);
                 setPlayText("SHOOT!");
                 Thread.sleep(500);
                 cameraActive = false;
@@ -131,9 +133,12 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
         }).start();
     }
 
-    //Repeatedly grabs frames of webcam and triggers countdown
-    void handleCamera(){
+    //Repeatedly grabs frames of webcam and triggers countdown before getting the player move
+    int retrievePlayerMove(){
+
+        int playerMove = -1;
         pyInterpreter = new SharedInterpreter(); //set up python interpreter
+
         try {
             pyInterpreter.exec("from src.main.python.ml_api import ML_API");
             pyInterpreter.exec("ml = ML_API()");
@@ -155,7 +160,11 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
         try {
             if(!appShutDown){
                 Frame frame = frameGrabber.grab(); //grab last frame and attempt to classify player move
-                detectPlayerMove(frame); //get player move
+                playerMove = detectPlayerMove(frame); //get player move
+
+                if(playerMove != -1)
+                    App.setPlayerMove(playerMove); //alert outer application that this is the player move
+
                 frameGrabber.release(); //release camera
             }
 
@@ -164,7 +173,11 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
         } catch (FrameGrabber.Exception e) {
             e.printStackTrace();
         }
+
+
+        return playerMove;
     }
+
 
     void triggerCameraGrabber() {
         videoView.setVisible(false); //hide image display loading screen or something
@@ -175,7 +188,25 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
         } catch (FrameGrabber.Exception e) {
             e.printStackTrace();
         }
-        new Thread(() -> handleCamera()).start(); //create new thread to repeatedly grab frames
+
+        new Thread(() -> {
+            int playerMove = retrievePlayerMove(); //get player move
+            Platform.runLater(() -> nextScreen(playerMove)); //then trigger screen move on javafx thread
+        }).start();
+    }
+
+    void nextScreen(int playerMove){
+
+        if(playerMove == -1)
+            App.setScreen(App.NO_HAND_SCREEN);
+        else
+            App.setScreen(App.VS_HAND_SCREEN);
+
+        ResetScreen(); //reset screen in case we come back
+    }
+
+    void ResetScreen(){
+        cameraActive = true;
     }
 
     @Override
@@ -188,12 +219,20 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
     public void initialize(URL location, ResourceBundle resources) {
         App.addShutDownListener(this);
         App.addScrnChangeListener(this);
+        cameraActive = true;
+        appShutDown = false;
+        javaCVMat = new Mat();
+        formatByte = PixelFormat.getByteBgraPreInstance();
+        javaCVConv = new OpenCVFrameConverter.ToMat();
+        frameGrabber = new OpenCVFrameGrabber(0);
+        iplConverter = new OpenCVFrameConverter.ToIplImage();
     }
 
     @Override
     public void onScreenChange(int currentScreen) {
-
-        if(currentScreen == App.VIDEO_SCREEN)
+        if(currentScreen == App.VIDEO_SCREEN) {
             triggerCameraGrabber(); //start capturing webcam footage if cam screen opened
+            App.makeComputerMove();
+        }
     }
 }

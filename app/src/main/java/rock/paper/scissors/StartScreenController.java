@@ -23,7 +23,7 @@ public class StartScreenController {
         PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
         pause.setOnFinished(event -> {
             startBtn.setStyle(regularColour);
-            App.setScreen(1); //move to play screen
+            App.setScreen(App.VIDEO_SCREEN); //move to play screen
         });
         pause.play();
     }

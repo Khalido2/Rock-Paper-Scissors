@@ -8,9 +8,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jep.Interpreter;
-import jep.JepException;
-import jep.SharedInterpreter;
 import org.bytedeco.opencv.opencv_core.Mat;
 
 import java.io.IOException;
@@ -21,17 +18,21 @@ public class App extends Application{
 
     static LinkedList<IShutDownListener> shutdownListeners;
     static LinkedList<IScreenChangeListener> scrnChangeListeners;
+    static LinkedList<IMovePlayedListener> movePlayedListeners;
     static final int VIDEO_SCREEN = 1;
+    static final int VS_HAND_SCREEN = 2;
+    static final int NO_HAND_SCREEN = 3;
     static AnchorPane root;
     static ArrayList<AnchorPane> screens; //stores all the different screens
     static int currentScreenIndex;
-    static Mat webcamImage;
 
     @Override
     public void start(Stage stage) throws IOException {
         root = (AnchorPane) FXMLLoader.load(getClass().getResource("anchor.fxml"));
         screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("gui-start.fxml")));
         screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("gui-play.fxml")));
+        screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("gui-vs.fxml")));
+        screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("no-hand.fxml")));
 
         root.getChildren().add(screens.get(0)); //add start window
         Scene scene = new Scene(root, 640, 400);
@@ -50,6 +51,7 @@ public class App extends Application{
 
         shutdownListeners = new LinkedList<>();
         scrnChangeListeners = new LinkedList<>();
+        movePlayedListeners = new LinkedList<>();
         screens = new ArrayList<>();
         currentScreenIndex = 0;
         launch();
@@ -57,7 +59,7 @@ public class App extends Application{
     public static void addScrnChangeListener(IScreenChangeListener listener){
         scrnChangeListeners.add(listener);
     }
-    public static void alertScrnChangeListeners(){
+    static void alertScrnChangeListeners(){
         for (IScreenChangeListener listener: scrnChangeListeners) {
             listener.onScreenChange(currentScreenIndex);
         }
@@ -66,9 +68,22 @@ public class App extends Application{
     public static void addShutDownListener(IShutDownListener listener){
         shutdownListeners.add(listener);
     }
-    public static void alertShutDownListeners(){
+    static void alertShutDownListeners(){
         for (IShutDownListener listener: shutdownListeners) {
             listener.onShutDown();
+        }
+    }
+
+    public static void setPlayerMove(int move) { alertMovePlayedListeners(move, true);}
+
+    public static void makeComputerMove() {alertMovePlayedListeners(GameLogic.GetComputerMove(), false);}
+
+    public static void addMovePlayedListener(IMovePlayedListener listener){
+        movePlayedListeners.add(listener);
+    }
+    static void alertMovePlayedListeners(int movePlayed, boolean isPlayer){
+        for (IMovePlayedListener listener: movePlayedListeners) {
+            listener.onMovePlayed(movePlayed, isPlayer);
         }
     }
 
@@ -77,7 +92,7 @@ public class App extends Application{
     }
 
     public static void setScreen(int i){
-        root.getChildren().remove(currentScreenIndex);
+        root.getChildren().remove(0);
         root.getChildren().add(getScreen(i));
         currentScreenIndex = i;
         alertScrnChangeListeners();
