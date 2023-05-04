@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="409.0" prefWidth="640.0" style="-fx-background-color: #0C81F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rock.paper.scissors.ResultScreenController">
+   <children>
+      <Button fx:id="resetBtn" layoutX="222.0" layoutY="205.0" mnemonicParsing="false" onAction="#onResetButtonClick" prefHeight="59.0" prefWidth="196.0" style="-fx-background-color: #F7FAD1;" text="PLAY AGAIN" AnchorPane.bottomAnchor="144.66666666666669" AnchorPane.leftAnchor="222.0" AnchorPane.rightAnchor="222.0" AnchorPane.topAnchor="205.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <VBox alignment="CENTER" layoutX="65.0" layoutY="30.0" prefHeight="151.0" prefWidth="507.0" style="-fx-background-color: #5FE1D9;">
+         <children>
+            <Text fx:id="resTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="YOU WIN!" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="59.0" />
+               </font>
+            </Text>
+            <Text fx:id="quoteTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;I've never seen sharper scissors&quot; - Obama" textAlignment="CENTER" wrappingWidth="510.13671875">
+               <font>
+                  <Font name="Berlin Sans FB" size="19.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+      <Group layoutX="364.0" layoutY="219.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="364.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="141.0">
+         <children>
+            <ImageView fitHeight="224.0" fitWidth="183.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@robot.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="169.0" fitWidth="177.0" layoutX="107.0" layoutY="-78.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@speech%20box.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="151.0" layoutY="-17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorry if I got it wrong, I am only 90% accurate" textAlignment="CENTER" wrappingWidth="79.283203125">
+               <font>
+                  <Font name="Berlin Sans FB" size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+   </children>
+</AnchorPane>

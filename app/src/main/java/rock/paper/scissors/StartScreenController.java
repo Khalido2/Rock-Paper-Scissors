@@ -9,20 +9,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 public class StartScreenController {
 
-    String clickedColour = "-fx-background-color:#5FE1D9";
-    String regularColour = "-fx-background-color:#F7FAD1";
-
     @FXML
     Button startBtn;
 
 
     @FXML
     protected void onStartButtonClick(){
-        startBtn.setStyle(clickedColour); //change to click colour
+        startBtn.setStyle(Constants.LIGHT_BTN_CLICKED_COLOUR); //change to click colour
         new Pulse(startBtn).play(); //play animation
         PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
         pause.setOnFinished(event -> {
-            startBtn.setStyle(regularColour);
+            startBtn.setStyle(Constants.LIGHT_BTN_DEFAULT_COLOUR);
             App.setScreen(App.VIDEO_SCREEN); //move to play screen
         });
         pause.play();

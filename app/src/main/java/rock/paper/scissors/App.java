@@ -8,20 +8,25 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.bytedeco.opencv.opencv_core.Mat;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+//TODO fix image classification codes for paper and rock
+//TODO fix colour scheme
+//TODO add sound
 
 public class App extends Application{
 
     static LinkedList<IShutDownListener> shutdownListeners;
     static LinkedList<IScreenChangeListener> scrnChangeListeners;
     static LinkedList<IMovePlayedListener> movePlayedListeners;
+    static LinkedList<IGameResultListener> gameResultListeners;
     static final int VIDEO_SCREEN = 1;
     static final int VS_HAND_SCREEN = 2;
     static final int NO_HAND_SCREEN = 3;
+    static final int RESULT_SCREEN = 4;
     static AnchorPane root;
     static ArrayList<AnchorPane> screens; //stores all the different screens
     static int currentScreenIndex;
@@ -32,7 +37,8 @@ public class App extends Application{
         screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("gui-start.fxml")));
         screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("gui-play.fxml")));
         screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("gui-vs.fxml")));
-        screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("no-hand.fxml")));
+        screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("gui-no-hand.fxml")));
+        screens.add((AnchorPane) FXMLLoader.load(getClass().getResource("gui-result.fxml")));
 
         root.getChildren().add(screens.get(0)); //add start window
         Scene scene = new Scene(root, 640, 400);
@@ -52,6 +58,7 @@ public class App extends Application{
         shutdownListeners = new LinkedList<>();
         scrnChangeListeners = new LinkedList<>();
         movePlayedListeners = new LinkedList<>();
+        gameResultListeners = new LinkedList<>();
         screens = new ArrayList<>();
         currentScreenIndex = 0;
         launch();
@@ -74,6 +81,15 @@ public class App extends Application{
         }
     }
 
+    public static void addGameResultListener(IGameResultListener listener){
+        gameResultListeners.add(listener);
+    }
+    static void alertGameResulListeners(int result){
+        for (IGameResultListener listener: gameResultListeners) {
+            listener.onGameResult(result);
+        }
+    }
+
     public static void setPlayerMove(int move) { alertMovePlayedListeners(move, true);}
 
     public static void makeComputerMove() {alertMovePlayedListeners(GameLogic.GetComputerMove(), false);}
@@ -85,6 +101,10 @@ public class App extends Application{
         for (IMovePlayedListener listener: movePlayedListeners) {
             listener.onMovePlayed(movePlayed, isPlayer);
         }
+    }
+
+    public static void setGameResult(int result){
+        alertGameResulListeners(result);
     }
 
     public static AnchorPane getScreen(int i){

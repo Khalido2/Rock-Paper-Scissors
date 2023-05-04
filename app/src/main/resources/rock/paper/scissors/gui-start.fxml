@@ -37,33 +37,39 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="409.0" prefWidth="640.0" style="-fx-background-color: #0C81F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rock.paper.scissors.StartScreenController">
    <children>
-      <Button fx:id="startBtn" layoutX="209.0" layoutY="152.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="106.0" prefWidth="222.0" style="-fx-background-color: #F7FAD1;" text="START" AnchorPane.bottomAnchor="151.0" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="209.0" AnchorPane.topAnchor="152.0">
+      <Text layoutX="160.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ROCK">
          <font>
-            <Font name="System Bold" size="45.0" />
+            <Font name="Bauhaus 93" size="53.0" />
+         </font>
+      </Text>
+      <Text layoutX="321.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PAPER">
+         <font>
+            <Font name="Courier New" size="53.0" />
+         </font>
+      </Text>
+      <Text layoutX="168.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCISSORS">
+         <font>
+            <Font name="Ravie" size="48.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="150.0" fitWidth="295.0" layoutX="6.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true" rotate="33.4" scaleX="1.7" scaleY="1.7" scaleZ="1.7">
+         <image>
+            <Image url="@title%20rock.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="295.0" layoutX="436.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true" rotate="-32.7" scaleX="2.0" scaleY="2.0" scaleZ="2.0">
+         <image>
+            <Image url="@title%20scissors.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="startBtn" layoutX="206.0" layoutY="171.0" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="68.0" prefWidth="230.0" style="-fx-background-color: #F7FAD1;" text="START" AnchorPane.bottomAnchor="171.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="204.0" AnchorPane.topAnchor="171.0">
+         <font>
+            <Font name="System Bold" size="32.0" />
          </font>
       </Button>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.686569213867188" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="426.0" AnchorPane.topAnchor="258.0">
-         <image>
-            <Image url="@Rock.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="430.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="286.0">
-         <image>
-            <Image url="@Scissors.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="276.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="426.0" AnchorPane.topAnchor="29.0">
-         <image>
-            <Image url="@Scissors%20flipped.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="430.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="268.3852844238281" AnchorPane.leftAnchor="430.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="21.948048909505204">
-         <image>
-            <Image url="@Paper%20flipped.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

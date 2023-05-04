@@ -59,7 +59,7 @@
                      <Image url="@vs_screen.jpg" />
                  </image>
              </ImageView>
-            <ImageView fx:id="playerMove" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" scaleX="2.0" scaleY="2.0" scaleZ="5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="playerMoveImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" scaleX="2.0" scaleY="2.0" scaleZ="5.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@human%20paper.png" />
                </image>
@@ -67,7 +67,7 @@
                   <Point3D y="1.0" />
                </rotationAxis>
             </ImageView>
-            <ImageView fx:id="compMove" fitHeight="150.0" fitWidth="200.0" layoutX="74.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0" scaleZ="2.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="compMoveImg" fitHeight="150.0" fitWidth="200.0" layoutX="74.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" scaleX="2.0" scaleY="2.0" scaleZ="2.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@human%20paper.png" />
                </image>

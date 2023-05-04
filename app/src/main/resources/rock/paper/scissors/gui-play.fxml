@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -41,9 +42,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rock.paper.scissors.PlayScreenController">
+<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="402.0" prefWidth="636.0" style="-fx-background-color: #0C81F6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rock.paper.scissors.PlayScreenController">
    <children>
-      <GridPane prefHeight="402.0" prefWidth="640.0" style="-fx-background-color: #0C81F6;">
+      <ProgressIndicator prefHeight="89.0" prefWidth="89.0" scaleX="3.0" scaleY="3.0" scaleZ="3.0" AnchorPane.bottomAnchor="164.5" AnchorPane.leftAnchor="306.5" AnchorPane.rightAnchor="306.5" AnchorPane.topAnchor="164.5" />
+      <GridPane prefHeight="402.0" prefWidth="640.0" style="-fx-background-color: transparent;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -55,7 +57,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="videoView" fitHeight="310.0" fitWidth="459.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="videoView" fitHeight="310.0" fitWidth="459.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@WebcamPlaceHolder.png" />
                </image>

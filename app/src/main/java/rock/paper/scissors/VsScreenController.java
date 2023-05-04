@@ -2,10 +2,12 @@ package rock.paper.scissors;
 
 import animatefx.animation.FadeOut;
 import animatefx.animation.Shake;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,11 +19,14 @@ public class VsScreenController implements IMovePlayedListener, Initializable, I
     static final String scissorsImageURL = "human scissors.png";
     static final String[] imagesURLs = new String[]{rockImageURL, paperImageURL, scissorsImageURL};
 
-    @FXML
-    private ImageView playerMove;
+    int playerMove;
+    int compMove;
 
     @FXML
-    private ImageView compMove;
+    private ImageView playerMoveImg;
+
+    @FXML
+    private ImageView compMoveImg;
 
     @FXML
     private ImageView flash;
@@ -32,9 +37,26 @@ public class VsScreenController implements IMovePlayedListener, Initializable, I
         Image newImg = new Image(getClass().getResourceAsStream(imagesURLs[moveMade]));
 
         if(isPlayer)
-            playerMove.setImage(newImg);
-        else
-            compMove.setImage(newImg);
+        {
+            playerMoveImg.setImage(newImg);
+            playerMove = moveMade;
+        }else
+        {
+            compMoveImg.setImage(newImg);
+            compMove = moveMade;
+        }
+    }
+
+    //Wait for a couple seconds then move to next screen
+    void waitnShiftToNextPage(){
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> {
+            App.setScreen(App.RESULT_SCREEN);
+        });
+        pause.play();
+
+        int result = GameLogic.calcMatchResult(playerMove, compMove);
+        App.setGameResult(result);
     }
 
     @Override
@@ -47,8 +69,9 @@ public class VsScreenController implements IMovePlayedListener, Initializable, I
     public void onScreenChange(int currentScreen) {
         if(currentScreen == App.VS_HAND_SCREEN){
             new FadeOut(flash).setSpeed(2).play();
-            new Shake(playerMove).play();
-            new Shake(compMove).play();
+            new Shake(playerMoveImg).play();
+            new Shake(compMoveImg).play();
+            waitnShiftToNextPage();
         }
     }
 }

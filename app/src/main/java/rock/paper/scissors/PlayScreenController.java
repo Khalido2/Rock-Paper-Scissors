@@ -1,7 +1,6 @@
 package rock.paper.scissors;
 
 import animatefx.animation.FadeIn;
-import animatefx.animation.Flash;
 import javafx.fxml.FXML;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -19,9 +18,6 @@ import java.util.ResourceBundle;
 
 import jep.*;
 
-//TODO get rid of hardcoded java path
-//TODO handle when finger tracking points are out of bounds
-
 public class PlayScreenController implements IShutDownListener, Initializable, IScreenChangeListener {
     static final String snapshotFilePath = "src/main/resources/snapshot.jpg";
 
@@ -32,7 +28,8 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
 
     private Interpreter pyInterpreter; //used to trigger python functions
 
-    boolean cameraActive;
+    boolean isCameraActive;
+    boolean hasCameraLoaded;
     boolean appShutDown;
 
     Mat javaCVMat;
@@ -123,7 +120,7 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
                 Thread.sleep(750);
                 setPlayText("SHOOT!");
                 Thread.sleep(500);
-                cameraActive = false;
+                isCameraActive = false;
                 playText.setVisible(false);
             }
             catch(InterruptedException ex)
@@ -148,7 +145,7 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
 
         startCountDown(); //trigger countdown
 
-        while (cameraActive) {
+        while (isCameraActive) {
             try {
                 Frame frame = frameGrabber.grab(); //get new frame
                 setVideoView(frame); //display camera frame
@@ -181,7 +178,6 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
 
     void triggerCameraGrabber() {
         videoView.setVisible(false); //hide image display loading screen or something
-        //TODO add loading screen here
 
         try {
             frameGrabber.start(); //open camera
@@ -206,12 +202,13 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
     }
 
     void ResetScreen(){
-        cameraActive = true;
+        isCameraActive = true;
+        hasCameraLoaded = false;
     }
 
     @Override
     public void onShutDown() {
-        cameraActive = false;
+        isCameraActive = false;
         appShutDown = true;
     }
 
@@ -219,7 +216,8 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
     public void initialize(URL location, ResourceBundle resources) {
         App.addShutDownListener(this);
         App.addScrnChangeListener(this);
-        cameraActive = true;
+        isCameraActive = true;
+        hasCameraLoaded = false;
         appShutDown = false;
         javaCVMat = new Mat();
         formatByte = PixelFormat.getByteBgraPreInstance();

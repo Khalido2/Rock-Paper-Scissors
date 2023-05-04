@@ -13,7 +13,7 @@ class ML_API():
             self.mp_hands = mp.solutions.hands #get set up vars for mediapipe
             self.hands = self.mp_hands.Hands()
             self.mp_draw = mp.solutions.drawing_utils
-            self.rps_model = keras.models.load_model('C:/Users/khali/Documents/VS Code projects/Rock-Paper-Scissors/app/src/main/resources/rps_model') #load cnn from file
+            self.rps_model = keras.models.load_model('src/main/resources/rps_model') #load cnn from file
             
 
         def draw_hand_trackers(self, img_path):
