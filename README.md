@@ -2,9 +2,18 @@
  
 A rock paper scissors game where you play against the computer
 
+Using medapipe the program creates a grid of hand tracking points. This grid is then put into a Convolutional Neural Network (using Tensorflow) which classifies that grid into Rock, Paper of Scissors. The GUI is built using JavaFX. The mediapipe and Tensorflow segments are written in python and wrapped in a Java gradle project.
+
+Currently the Neural Network only has a 90% accuracy on the test set and has a tendency to misclassify Rock. See the confusion matrix for more details.
+
 Packages required for project: check build.gradle file
 
-Still in development. The main elements of the project (i.e. mediapipe that detects and tracks player's hands and the tensorflow model (CNN) that classifies the generated grids of tracking points into moves) are all written in
-python in the ml_api.py script. The whole project has been wrapped in Java in order to provide a more flexible and prettier GUI using JavaFX rather than the python options.
+To run project: 
+-Install gradle
+-Download the repo
+-Open a terminal at the path of the repo
+-Run the command "gradle build"
 
-Currently only the start screen and play screen are implemented
+Features to be added:
+-Sound fx and music
+-Optimise CNN to have greater accuracy

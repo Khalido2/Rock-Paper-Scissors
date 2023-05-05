@@ -19,11 +19,11 @@ public class ResultScreenController implements IGameResultListener, IMovePlayedL
     String scissorWinTxt = "\"I've never seen sharper scissors\" - Obama 2021";
     String scissorLoseTxt = "\"Sorry kid, you didn't make the cut\" - Coach Carter";
 
-    String paperWinTxt = "\"That paper plane really took flight\" - Newton 1744";
-    String paperLoseTxt = "\"You suck at origami!\" - Gandhi"; //or I thought we were on a roll, but we got wiped out
+    String paperWinTxt = "\"That paper plane really took flight\" - Newton 1665";
+    String paperLoseTxt = "\"You suck at origami!\" - The Lorax"; //or I thought we were on a roll, but we got wiped out
 
     String rockWinTxt = "\"Tall stands the rock that shatters the blades of time\" - Sun Tzu";
-    String rockLoseTxt = "\"I told you to be a rock, not a pebble!\" - David Arquette";
+    String rockLoseTxt = "\"I said be a rock, not a pebble!\" - The Rock";
 
     @FXML
     Text resTxt;

@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-//TODO fix image classification codes for paper and rock
 //TODO fix colour scheme
 //TODO add sound
 
