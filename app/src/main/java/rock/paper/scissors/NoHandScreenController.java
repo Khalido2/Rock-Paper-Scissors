@@ -12,7 +12,7 @@ public class NoHandScreenController {
     Button resetBtn;
 
     @FXML
-    protected void onResetButtonClick(){
+    void onResetButtonClick(){
         resetBtn.setStyle(Constants.DARK_BTN_CLICKED_COLOUR); //change to click colour
         new Pulse(resetBtn).play(); //play animation
         PauseTransition pause = new PauseTransition(Duration.seconds(0.5));

@@ -48,14 +48,16 @@ public class VsScreenController implements IMovePlayedListener, Initializable, I
     }
 
     //Wait for a couple seconds then move to next screen
-    void waitnShiftToNextPage(){
+    void waitNShiftToNextPage(){
+        int result;
+
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
             App.setScreen(App.RESULT_SCREEN);
         });
         pause.play();
 
-        int result = GameLogic.calcMatchResult(playerMove, compMove);
+        result = GameLogic.calcMatchResult(playerMove, compMove); //calculate result of match
         App.setGameResult(result);
     }
 
@@ -67,11 +69,11 @@ public class VsScreenController implements IMovePlayedListener, Initializable, I
 
     @Override
     public void onScreenChange(int currentScreen) {
-        if(currentScreen == App.VS_HAND_SCREEN){
+        if(currentScreen == App.VS_HAND_SCREEN){ //when game reaches this screen
             new FadeOut(flash).setSpeed(2).play();
             new Shake(playerMoveImg).play();
             new Shake(compMoveImg).play();
-            waitnShiftToNextPage();
+            waitNShiftToNextPage();
         }
     }
 }

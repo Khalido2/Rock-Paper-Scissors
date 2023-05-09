@@ -13,8 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-//TODO fix colour scheme
-//TODO add sound
+//TODO add sound and music
 
 public class App extends Application{
 

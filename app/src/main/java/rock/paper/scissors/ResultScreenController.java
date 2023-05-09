@@ -35,7 +35,7 @@ public class ResultScreenController implements IGameResultListener, IMovePlayedL
     Button resetBtn;
 
     @FXML
-    protected void onResetButtonClick(){
+    void onResetButtonClick(){
         resetBtn.setStyle(Constants.LIGHT_BTN_CLICKED_COLOUR); //change to click colour
         new Pulse(resetBtn).play(); //play animation
         PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
@@ -66,12 +66,12 @@ public class ResultScreenController implements IGameResultListener, IMovePlayedL
             quoteTxt.setText(tieTxt);
         }else{
 
+            String quote;
+
             if(result == 0)
                 resTxt.setText("YOU WON!");
             else
                 resTxt.setText("YOU LOST!");
-
-            String quote;
 
             if(playerMove == 0)
                 quote = getQuoteRock(result == 0);

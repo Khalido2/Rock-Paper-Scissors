@@ -22,11 +22,11 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
     static final String snapshotFilePath = "src/main/resources/snapshot.jpg";
 
     @FXML
-    private ImageView videoView;
+    ImageView videoView;
     @FXML
-    private Text playText;
+    Text playText;
 
-    private Interpreter pyInterpreter; //used to trigger python functions
+    Interpreter pyInterpreter; //used to trigger python functions
 
     boolean isCameraActive;
     boolean hasCameraLoaded;
@@ -43,7 +43,7 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
     ByteBuffer buffer;
 
     //Update webcam display with annotated webcam footage
-    protected void updateView(Frame frame) {
+    void updateView(Frame frame) {
         int w = frame.imageWidth;
         int h = frame.imageHeight;
 
@@ -68,7 +68,7 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
 
     //Calls mediapipe and gets annotated image
     //Returns the path to that image
-    public String getAnnotatedImage(String imgPath){
+    String getAnnotatedImage(String imgPath){
         try{
             pyInterpreter.set("img_path", imgPath);
             Object res = pyInterpreter.getValue("ml.draw_hand_trackers(img_path)");
@@ -106,7 +106,7 @@ public class PlayScreenController implements IShutDownListener, Initializable, I
 
     //Does a countdown from 3 before disabling the camera and taking the player's move
     void startCountDown(){
-        new Thread(() -> { //create a new thread to do the counting
+        new Thread(() -> { //create a new thread to do the counting down
             try
             {
                 playText.setVisible(true);
