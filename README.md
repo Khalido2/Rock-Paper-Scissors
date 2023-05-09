@@ -8,6 +8,9 @@ Currently the Neural Network only has a 90% accuracy on the test set and has a t
 
 Packages required for project: check build.gradle file
 
+Some recorded gameplay:
+![Gameplay](https://github.com/Khalido2/Rock-Paper-Scissors/assets/60740437/b0ca9e0f-a652-4176-a150-75ac8b9986aa)
+
 To run project: 
 -Install gradle
 -Download the repo
