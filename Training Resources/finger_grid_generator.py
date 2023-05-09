@@ -19,8 +19,6 @@ def print_grid(grid):
         print(row)
 
 
-#going to use mediapipe library to detect and track 21 points of a hand
-#mediapipe requires an rgb image
 
 if len(sys.argv) < 2:
     print("Need at least 1 argument (Rock, Paper or Scissors)")
@@ -44,7 +42,7 @@ output_grids =  "-p" in opts #should print out finger grids as it generates them
 
 
 cam = cv2.VideoCapture(0) #get video feed from webcam
-mp_hands = mp.solutions.hands
+mp_hands = mp.solutions.hands #prep mediapipe
 hands = mp_hands.Hands()
 mp_draw = mp.solutions.drawing_utils
 
