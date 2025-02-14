@@ -17,6 +17,7 @@ To run project:
 * Download the repo
 * Open a terminal at the path of the repo
 * Run the command "gradle build"
+* Then run the command "gradle run"
 
 Features to be added:
 * Sound fx and music
